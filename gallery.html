@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width initial-scale=1.0" name="viewport"/>
+<title>GALLERY PAGE</title>
+<link href="optional.css" rel="stylesheet"/>
+</head>
+<body>
+<div id="main"></div>
+<span onclick="openNav()" style="font-size: 30px; cursor: pointer;">☰</span>
+<div class="content">
+<div class="sidenav" id="mysidenav">
+<a class="closebtn" href="javascript:void(0)" onclick="closeNav()">×</a>
+<a href="home.html">HOME</a>
+<a href="program-services.html">PROGRAM &amp; SERVICES</a>
+<a href="mission statement.html">MISSION STATEMENT</a>
+<a href="gallery.html">GALLERY</a>
+<a href="about us.html">ABOUT US</a>
+<a href="contact.html">CONTACT US</a>
+</div>
+</div>
+<section id="gallery-section">
+<h5>OUR GALLERY</h5>
+<p>At Lilly & Jerry Day Care , every moment is a memory. Our gallery captures the joy, laughter, and curiosity that fills our classroom and playground each day.
+  From creative activities and group projects to quiet moments and the heart of who we are . We believe in celebrating our children's growth, and this collection
+  is just a glimpse into the vibrant, nurturing environment we've created together.
+</p>
+<div id="gallery" class="image-grid">
+<img alt="Day care image" src="day_care_ images/day -care-image.jpg" title="Day care image"/>
+<img alt="care image" src="day_care_ images/day-care-image17.jpg" title="Day care image"/>
+<img alt="Day care image" src="day_care_ images/day-care-image6.jpg" title="Day care image"/>
+<img alt="Day care image" src="day_care_ images/day-care-image11.jpg" title="Day care image"/>
+<img alt="Day care image" src="day_care_ images/day-care-image5.jpg" title="Day care image"/>
+<img alt="Day care image" src="day_care_ images/day-care-image4.jpg" title="Day care image"/>
+<img alt="Day care image" src="day_care_ images/day-care-image7.jpg" title="Day care image"/>
+<img alt="Day care image" src="day_care_ images/day-care-image8.jpg" title="Day care image"/>
+<img alt="Day care image" src="day_care_ images/day-care-image9.jpg" title="Day care image"/>
+<img alt="Day care image" src="day_care_ images/day-care-image10.jpg" title="Day care image"/>
+<img alt="Day care image" src="day_care_ images/day-care-image2.jpg" title="Day care image"/>
+<img alt="Day care image" src="day_care_ images/day-care-image12.jpg" title="Day care image"/>
+<img alt="Day care image" src="day_care_ images/day-care-image13.jpg" title="Day care image"/>
+<img alt="Day care image" src="day_care_ images/day-care-image14.jpg" title="Day care image"/>
+<img alt="Day care image" src="day_care_ images/day-care-image15.jpg" title="Day care image"/>
+<img alt="Day care image" src="day_care_ images/day-care-image16.jpg" title="Day care image"/>
+<img alt="Day care image" src="day_care_ images/day-care-image3.jpg" title="Day care image"/>
+<img alt="Day care image" src="day_care_ images/day-care-image18.jpg" title="Day care image"/>
+<img alt="Day care image" src="day_care_ images/day-care-image19.jpg" title="Day care image"/>
+<img alt="Day care image" src="day_care_ images/day-care-image20.jpg" title="Day care image"/>
+<img alt="Day care image" src="day_care_ images/day-care-image21.jpg" title="Day care image"/>
+<img alt="Day care image" src="day_care_ images/day-care-image22.jpg" title="Day care image"/>
+<img alt="Day care image" src="day_care_ images/day-care-image23.jpg" title="Day care image"/>
+<img alt="Day care image" src="day_care_ images/day-care-image24.jpg" title="Day care image"/>
+<img alt="Day care image" src="day_care_ images/day-care-image25.jpg" title="Day care image"/>
+
+</div>
+</section>
+<input type="file" id="uploadInput" accept="image/*,video/*" />
+<button class="add-button" onclick="document.getElementById('uploadInput').click()">+</button>
+
+<script>
+  const input= document.getElementById("uploadInput");
+  const gallery= document.getElementById("gallery");
+
+input.addEventListener("change", async () => {const file= input.files[0]; if (!file) return;
+
+  const formData = new FormData();
+  formData.append("file",file);
+  formData.append("upload_preset", "ml_default");
+
+  try {
+    const res = await
+    fetch("http://api.cloudinary.com/v1_1/kdnhj1ke9/auto/upload", {"=method: "POST",
+    body: formData,
+    });
+  }
+  const data = await res.json();
+  
+  let element;
+  if(file.type.starsWith("video")) {element = document.createElement("video");
+    element.controls = true;
+    element.src = data.secure_url;
+    element.style.width = "100%";
+    element.style.borderRadius = "10px";
+    gallery.insertBefore(element, gallery.firstChild);}
+    else{
+      element = document.createElement("img");
+      element.src = data.secured_url;
+      element.alt = "Uploaded Image";
+      element.title = "New Upload";
+      element.style.borderRadius = "10px";
+      element.style.width = "100%";
+      gallery.insertBefore(element, gallery.firstChild);
+    }
+    input.value = "";
+  } catch (error) {
+    alert("Upload failed. Please try again.");
+    console.error(error);
+  }
+});
+</script>
+<footer>
+      © 2017 LILLY &amp; JERRY DAY CARE
+        </footer>
+<script src="javascript.js"></script>
+</body>
+</html>
